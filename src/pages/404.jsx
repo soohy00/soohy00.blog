@@ -1,18 +1,16 @@
-import React from "react"
-import styled from "styled-components"
-
-import Layout from "components/Layout"
-import SEO from "components/SEO"
-
-import { title, description, siteUrl } from "../../blog-config"
+import React from "react";
+import styled from "styled-components";
+import Layout from "components/Layout";
+import SEO from "components/SEO";
 
 const NotFound = styled.div`
-  height: 800px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${props => props.theme.colors.tertiaryText};
+  color: ${(props) => props.theme.colors.tertiaryText};
+  text-align: center;
 
   & > h2 {
     margin-bottom: 16px;
@@ -26,18 +24,28 @@ const NotFound = styled.div`
   }
 
   @media (max-width: 768px) {
-    height: 300px;
+    min-height: 300px;
+    & > h2 {
+      font-size: 36px;
+    }
+    & > h3 {
+      font-size: 24px;
+    }
   }
-`
+`;
 
 const NotFoundPage = () => (
   <Layout>
-    <SEO title={title} description={description} url={siteUrl} />
+      <SEO 
+      title="404: Page Not Found" 
+      description="This page does not exist." 
+      url={process.env.SITE_URL || "http://localhost:8000"} 
+      />
     <NotFound>
       <h2>404 ERROR</h2>
-      <h3>Page Not Found X(</h3>
+      <h3>Page Not Found X</h3>
     </NotFound>
   </Layout>
-)
+);
 
-export default NotFoundPage
+export default NotFoundPage;

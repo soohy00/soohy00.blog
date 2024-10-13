@@ -1,11 +1,11 @@
 ---
 title: "🚀 2. 빠르게 시작하기"
 description:
-date: 2021-04-02
-update: 2021-04-02
-tags:
-  - hoodie
-  - quick-start
+date: "2021-04-02"
+update: "2021-04-02"
+tags: 
+    - hoodie
+    - about
 series: "gatsby-starter-hoodie 로 블로그 시작하기"
 ---
 

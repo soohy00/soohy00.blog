@@ -1,11 +1,11 @@
 ---
 title: "🤩 4. 그 외 팁들"
 description:
-date: 2021-04-04
-update: 2021-04-04
-tags:
-  - hoodie
-  - other-tips
+date: "2021-04-04"
+update: "2021-04-04"
+tags: 
+    - hoodie
+    - about
 series: "gatsby-starter-hoodie 로 블로그 시작하기"
 ---
 

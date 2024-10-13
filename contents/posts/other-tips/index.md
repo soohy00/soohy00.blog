@@ -1,11 +1,10 @@
 ---
 title: "🤩 4. Other Tips"
 description:
-date: 2021-05-04
-update: 2021-05-04
-tags:
-  - hoodie
-  - other-tips
+date: "2021-05-04"
+update: "2021-05-04"
+tags: 
+    - hoodie
 series: "Getting started your blog with gatsby-starter-hoodie"
 ---
 

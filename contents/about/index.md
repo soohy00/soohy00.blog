@@ -1,5 +1,6 @@
 ---
 title: "This is about page ✋"
+description: "Welcome to the About page. This is a place where you can introduce your blog or yourself."
 ---
 
 ## English Guide
@@ -14,19 +15,7 @@ The Markdown document for the About page only contains a single frontmatter call
 
 ### Disabling the About Page
 
-```json
-module.exports = {
-
-  // ...
-
-  useAbout: false, // 👈
-
-  // ...
-
-}
-```
-
-You can disable the About page by setting the `useAbout` value to false in the `blog-config.js` file. If disabled, the tab in the blog header will be hidden, and visitors will not be able to access this page via the `/about` URL.
+To disable this page, you can set the `useAbout` configuration to `false` in your `blog-config.js` file.
 
 ## 한국어 가이드
 
@@ -40,16 +29,4 @@ About 페이지의 마크다운 문서는 오직 `title` 이라는 하나의 fro
 
 ### 비활성화
 
-```json
-module.exports = {
-
-  // ...
-
-  useAbout: false, // 👈
-
-  // ...
-
-}
-```
-
-`blog-config.js` 파일의 `useAbout` 값을 `false` 로 설정하여 About 페이지를 비활성화 할 수 있습니다. 비활성화 된다면, 블로그 상단에 존재하는 탭이 숨겨지고, `/about` 경로로 이 페이지에 접속할 수도 없게 됩니다.
+About 페이지를 비활성화하려면, `blog-config.js` 파일의 `useAbout` 값을 `false`로 설정하세요. 비활성화되면 상단 메뉴에서 About 페이지 링크가 제거되고, `/about` 경로로 이 페이지에 접근할 수 없게 됩니다.

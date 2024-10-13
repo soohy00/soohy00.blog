@@ -1,6 +1,13 @@
-import { createStore } from "redux"
-import rootReducer from "reducers"
+// src/redux/createStore.js
 
-const store = preloadedState => createStore(rootReducer, preloadedState)
+import { createStore, applyMiddleware, compose } from "redux";
+import rootReducer from "./reducers"; // 실제 reducer 파일 경로에 맞게 변경 필요
 
-export default store
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(...[])) // 미들웨어가 있으면 추가
+);
+
+export default store;

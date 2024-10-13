@@ -18,11 +18,14 @@ const BlogIndex = ({ data }) => {
 
   if (posts.length === 0) {
     return (
-      <p>
-        No blog posts found. Add markdown posts to &quot;content/blog&quot; (or
-        the directory you specified for the &quot;gatsby-source-filesystem&quot;
-        plugin in gatsby-config.js).
-      </p>
+      <Layout>
+        <SEO title={title} description={description} url={siteUrl} />
+        <p>
+          No blog posts found. Add markdown posts to &quot;content/blog&quot; (or
+          the directory you specified for the &quot;gatsby-source-filesystem&quot;
+          plugin in gatsby-config.js).
+        </p>
+      </Layout>
     )
   }
 
@@ -42,31 +45,20 @@ export default BlogIndex
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
+  allMarkdownRemark(
+    sort: { frontmatter: { date: DESC } }
+  ) {
+    nodes {
+      excerpt
+      fields {
+        slug
+      }
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
         title
-      }
-    }
-    allMarkdownRemark(
-      sort: {frontmatter: {date: DESC}}
-      filter: { fileAbsolutePath: { regex: "/contents/posts/" } }
-    ) {
-      group(field: {frontmatter: {tags: SELECT}}) {
-        fieldValue
-        totalCount
-      }
-      nodes {
-        excerpt(pruneLength: 200, truncate: true)
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          update(formatString: "MMM DD, YYYY")
-          title
-          tags
-        }
+        tags
       }
     }
   }
+}
 `

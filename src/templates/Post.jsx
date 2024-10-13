@@ -1,79 +1,63 @@
-import React from "react"
-import SEO from "components/SEO"
-import { graphql } from "gatsby"
+import React from "react";
+import SEO from "components/SEO";
+import { graphql } from "gatsby";
+import Layout from "components/Layout";
+import Article from "components/Article";
+import { siteUrl } from "../../blog-config";
 
-import Layout from "components/Layout"
-import Article from "components/Article"
+const Post = ({ data, pageContext }) => {
+  const post = data.markdownRemark;
+  const { title, date, tags, series } = post.frontmatter;
+  const { excerpt } = post;
+  const { slug } = post.fields;
 
-import { siteUrl } from "../../blog-config"
-
-const Post = ({ data }) => {
-  const post = data.markdownRemark
-  const { previous, next, seriesList } = data
-
-  const { title, date, update, tags, series } = post.frontmatter
-  const { excerpt } = post
-  const { slug } = post.fields
-
-  let filteredSeries = []
-  if (series !== null) {
-    filteredSeries = seriesList.edges.map(seriesPost => {
-      if (seriesPost.node.id === post.id) {
-        return {
-          ...seriesPost.node,
-          currentPost: true,
-        }
-      } else {
-        return {
-          ...seriesPost.node,
-          currentPost: false,
-        }
-      }
-    })
-  }
+  // Series data from the query with conditional slug check
+  const seriesList = data.seriesList.nodes || [];
+  const filteredSeries = seriesList.map(seriesPost => ({
+    ...seriesPost,
+    currentPost: seriesPost.id === post.id,
+  }));
 
   return (
     <Layout>
       <SEO title={title} description={excerpt} url={`${siteUrl}${slug}`} />
       <Article>
-        <Article.Header
-          title={title}
-          date={date}
-          update={update}
-          tags={tags} 
-        />
+        <Article.Header title={title} date={date} tags={tags} />
         {filteredSeries.length > 0 && (
           <Article.Series header={series} series={filteredSeries} />
         )}
         <Article.Body html={post.html} />
-        <Article.Footer previous={previous} next={next} />
+        {/* Series Navigation */}
+        <div>
+          {filteredSeries.map((seriesPost, i) => (
+            <div key={i}>
+              <a href={seriesPost.fields?.slug || "#"}>
+                {seriesPost.frontmatter.title || "Untitled"}
+              </a>
+              {seriesPost.currentPost && <span>← Current</span>}
+            </div>
+          ))}
+        </div>
       </Article>
     </Layout>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;
 
-export const pageQuery = graphql`
-  query BlogPostBySlug(
-    $id: String!
-    $series: String
-    $previousPostId: String
-    $nextPostId: String
-  ) {
+export const query = graphql`
+  query BlogPostBySlug($slug: String!, $series: String) {
     site {
       siteMetadata {
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
-      id
-      excerpt(pruneLength: 200, truncate: true)
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      excerpt
       html
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        update(formatString: "MMMM DD, YYYY")
         tags
         series
       }
@@ -82,36 +66,18 @@ export const pageQuery = graphql`
       }
     }
     seriesList: allMarkdownRemark(
-      sort: {frontmatter: {date: ASC}}
       filter: { frontmatter: { series: { eq: $series } } }
     ) {
-      edges {
-        node {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-          }
+      nodes {
+        id
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          date(formatString: "MMMM DD, YYYY")
         }
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
-    }
-    next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
-    }
   }
-`
+`;

@@ -1,11 +1,11 @@
 ---
 title: "🚀 2. Quick Start"
 description:
-date: 2021-05-02
-update: 2021-05-02
-tags:
-  - hoodie
-  - quick-start
+date: "2021-05-02"
+update: "2021-05-02"
+tags: 
+    - hoodie
+    - about
 series: "Getting started your blog with gatsby-starter-hoodie"
 ---
 

@@ -1,11 +1,10 @@
 ---
 title: "🎇 1. About gatsby-starter-hoodie"
 description: "Let's learn about gatsby-starter-hoodie."
-date: 2021-05-01
-update: 2021-05-01
-tags:
-  - hoodie
-  - about
+date: "2021-05-01"
+update: "2021-05-01"
+tags: 
+    - hoodie
 series: "Getting started your blog with gatsby-starter-hoodie"
 ---
 

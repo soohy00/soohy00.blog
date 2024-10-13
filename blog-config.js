@@ -5,8 +5,6 @@ module.exports = {
   siteUrl: "https://soohy00.github.io/gatsby-starter-hoodie/",
   links: {
     github: "https://github.com/soohy00",
-    email: "lixx7273@gmail.com",
-    link: "https://naver.com",
   },
   useAbout: true,
   // See https://giscus.app/

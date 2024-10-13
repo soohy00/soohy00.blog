@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useMemo } from "react"
 import styled from "styled-components"
 import SEO from "components/SEO"
 import { graphql } from "gatsby"
@@ -20,21 +20,21 @@ const SearchWrapper = styled.div`
 
 const Search = ({ data }) => {
   const posts = data.allMarkdownRemark.nodes
-
   const [query, setQuery] = useState("")
 
-  const filteredPosts = useCallback(
-    posts.filter(post => {
+  const filteredPosts = useMemo(() => {
+    const lowerQuery = query.toLowerCase()
+
+    return posts.filter(post => {
       const { frontmatter, rawMarkdownBody } = post
       const { title } = frontmatter
-      const lowerQuery = query.toLocaleLowerCase()
 
-      if (rawMarkdownBody.toLocaleLowerCase().includes(lowerQuery)) return true
-
-      return title.toLocaleLowerCase().includes(lowerQuery)
-    }),
-    [query]
-  )
+      return (
+        title.toLowerCase().includes(lowerQuery) ||
+        rawMarkdownBody.toLowerCase().includes(lowerQuery)
+      )
+    })
+  }, [query, posts])
 
   return (
     <Layout>
@@ -59,12 +59,16 @@ export default Search
 
 export const pageQuery = graphql`
   query {
+      site {
+      siteMetadata {
+        title
+      }
+    }
     allMarkdownRemark(
-      sort: {frontmatter: {date: DESC}}
-      filter: { fileAbsolutePath: { regex: "/contents/posts/" } }
+      sort: { frontmatter: { date: DESC } }
     ) {
       nodes {
-        excerpt(pruneLength: 200, truncate: true)
+        excerpt
         fields {
           slug
         }

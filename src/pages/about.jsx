@@ -8,11 +8,9 @@ import VerticalSpace from "components/VerticalSpace"
 import Article from "components/Article"
 import Comment from "components/Article/Footer/Comment"
 import Tab from "components/Tab"
-
 import NotFoundPage from "pages/404"
 
 import styled from "styled-components"
-
 import { title, description, siteUrl, useAbout } from "../../blog-config"
 import Divider from "components/Divider"
 
@@ -30,15 +28,20 @@ const Wrapper = styled.div`
   }
 `
 
-const BlogIndex = ({ data }) => {
-  const aboutPost = data.markdownRemark
-  const postsCount = data.allMarkdownRemark.totalCount
+const AboutPage = ({ data }) => {
+  // 첫 번째 엣지에서 데이터 가져오기
+  const aboutPost = data?.markdownRemark || null
+  const postsCount = data?.allMarkdownRemark?.totalCount || 0
 
-  if (!useAbout) return <NotFoundPage />
+  if (!useAbout || !aboutPost) return <NotFoundPage />
 
   return (
     <Layout>
-      <SEO title={title} description={description} url={siteUrl} />
+      <SEO 
+        title={aboutPost.frontmatter.title || title} 
+        description={description} 
+        url={siteUrl} 
+      />
       <VerticalSpace size={48} />
       <Bio />
       <Tab postsCount={postsCount} activeTab="about" />
@@ -56,19 +59,17 @@ const BlogIndex = ({ data }) => {
   )
 }
 
-export default BlogIndex
+export default AboutPage
 
 export const pageQuery = graphql`
   query {
-    markdownRemark(fileAbsolutePath: { regex: "/contents/about/" }) {
+    markdownRemark(fileAbsolutePath: { regex: "/contents/" }) {
       html
       frontmatter {
         title
       }
     }
-    allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/contents/posts/" } }
-    ) {
+    allMarkdownRemark {
       totalCount
     }
   }

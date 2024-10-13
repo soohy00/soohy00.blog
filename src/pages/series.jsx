@@ -27,12 +27,12 @@ const SeriesPage = ({ data }) => {
     map(post => ({ ...post.frontmatter, slug: post.fields.slug })),
     groupBy("series"),
     map(series => ({
-      name: series[0].series,
+      name: series[0]?.series,
       posts: series,
-      lastUpdated: series[0].date,
+      lastUpdated: series[0]?.date || "",
     })),
-    sortBy(series => new Date(series.lastUpdated)),
     filter(series => series.name),
+    sortBy(series => new Date(series.lastUpdated)),
     reverse
   )(posts)
 
@@ -64,27 +64,20 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(
-      sort: {frontmatter: {date: DESC}}
-      filter: { fileAbsolutePath: { regex: "/contents/posts/" } }
-    ) {
-      group(field: {frontmatter: {tags: SELECT}}) {
-        fieldValue
-        totalCount
+  allMarkdownRemark(
+    sort: { frontmatter: { date: DESC } }
+  ) {
+    nodes {
+      excerpt
+      fields {
+        slug
       }
-      nodes {
-        excerpt(pruneLength: 200, truncate: true)
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          update(formatString: "MMM DD, YYYY")
-          title
-          tags
-          series
-        }
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        title
+        tags
       }
     }
   }
+}
 `

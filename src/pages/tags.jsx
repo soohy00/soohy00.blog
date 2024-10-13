@@ -92,32 +92,30 @@ const TagsPage = ({ data }) => {
 export default TagsPage
 
 export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
+query {
+  site {
+    siteMetadata {
+      title
     }
-    allMarkdownRemark(
-      sort: {frontmatter: {date: DESC}}
-      filter: { fileAbsolutePath: { regex: "/contents/posts/" } }
-    ) {
-      group(field: {frontmatter: {tags: SELECT}}) {
-        fieldValue
-        totalCount
+  }
+  allMarkdownRemark(
+    sort: { frontmatter: { date: DESC } }
+  ) {
+    group(field: { frontmatter: { tags: SELECT } }) {
+      fieldValue
+      totalCount
+    }
+    nodes {
+      excerpt
+      fields {
+        slug
       }
-      nodes {
-        excerpt(pruneLength: 200, truncate: true)
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          update(formatString: "MMM DD, YYYY")
-          title
-          tags
-        }
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        title
+        tags
       }
     }
   }
+}
 `
