@@ -2,12 +2,12 @@ const blogConfig = require("./blog-config");
 const { title, description, author, siteUrl } = blogConfig;
 
 module.exports = {
-  pathPrefix: "/gatsby-starter-hoodie",
+  pathPrefix: "/repo-name",
   siteMetadata: {
     title,
     description,
     author,
-    siteUrl,
+    siteUrl: 'https://username.github.io/repo-name',
   },
   plugins: [
     `gatsby-plugin-catch-links`,
@@ -15,7 +15,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-react-redux`,
       options: {
-        pathToCreateStoreModule: "./src/reducers/createStore",
+        pathToCreateStoreModule: "./src/redux/createStore", // 경로 수정
         serialize: {
           space: 0,
           isJSON: true,
@@ -23,17 +23,18 @@ module.exports = {
           ignoreFunction: true,
         },
         cleanupOnClient: true,
-        windowKey: "__PRELOADED_STATE__"
+        windowKey: "__PRELOADED_STATE__",
       },
     },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `noto sans kr:300,400,500,700,900`,
-          `source code pro:700`, 
+          `noto sans kr\:300,400,500,700,900`,
+          `source code pro\:700`
         ],
         display: "swap",
+        preconnect: true,
       },
     },
     "gatsby-plugin-styled-components",
@@ -55,80 +56,37 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `markdown-pages`,
+        name: `images`,
         path: `${__dirname}/contents`,
       },
     },
-    `gatsby-transformer-remark`,
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: `gatsby-plugin-image`,
       options: {
-        extensions: [`.mdx`, `.md`],
-        mdxOptions: {
-          commonmark: true,
-          footnotes: true,
-          pedantic: true,
-        },
-      },
+        defaults: {
+          formats: [`auto`, `webp`],
+          placeholder: `blurred`,
+          quality: 50,
+        }
+      }
     },
-    `gatsby-plugin-resolve-src`,
-    `gatsby-plugin-sitemap`,
     {
-      resolve: `gatsby-plugin-feed`,
+      resolve: `gatsby-transformer-remark`,
       options: {
-        query: `
+        plugins: [
           {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                site_url: siteUrl
-              }
-            }
-          }
-        `,
-        feeds: [
-          {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map((edge) => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
-                });
-              });
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+              linkImagesToOriginal: false,
+              quality: 90,
+              withWebp: true,
             },
-            query: `
-              {
-                allMarkdownRemark(
-                  sort: { frontmatter: { date: DESC } },
-                  filter: { fileAbsolutePath: { regex: "/contents/posts/" } }
-                ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      fields {
-                        slug
-                      }
-                      frontmatter {
-                        title
-                        date
-                      }
-                    }
-                  }
-                }
-              }
-            `,
-            output: `/rss.xml`,
-            title: `RSS Feed of ${title}`,
-            match: "^/blog/",
           },
+          `gatsby-remark-copy-linked-files`,
         ],
       },
     },
+    `gatsby-plugin-resolve-src`,
   ],
 };

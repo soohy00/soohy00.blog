@@ -14,7 +14,8 @@ import Footer from "./Footer"
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch()
-  const { theme } = useSelector(state => state.theme)
+  const themeState = useSelector(state => state.theme) || { theme: 'light' }
+  const { theme } = themeState
 
   let isSystemDarkMode = null
   if (typeof window !== "undefined") {

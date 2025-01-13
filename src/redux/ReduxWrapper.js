@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Provider } from "react-redux";
-import createStore from "./reducers/createStore";
+import createStore from "../reducers/createStore";
 
 const store = createStore();
 

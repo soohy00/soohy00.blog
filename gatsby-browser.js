@@ -1,4 +1,17 @@
-require("katex/dist/katex.min.css")
-import wrapWithProvider from "./src/redux/ReduxWrapper.js";
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
+import { lightTheme } from './src/styles/theme'
+import GlobalStyles from './src/components/GlobalStyles'
+import createStore from "./src/redux/createStore"
 
-export const wrapRootElement = wrapWithProvider;
+const store = createStore()
+
+export const wrapRootElement = ({ element }) => (
+  <Provider store={store}>
+    <ThemeProvider theme={lightTheme}>
+      <GlobalStyles />
+      {element}
+    </ThemeProvider>
+  </Provider>
+)

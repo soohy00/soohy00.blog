@@ -4,7 +4,8 @@ import DarkMode from "./DarkMode"
 import LightMode from "./LightMode"
 
 const PrismTheme = () => {
-  const { theme } = useSelector(state => state.theme)
+  const themeState = useSelector(state => state.theme) || { theme: 'light' }
+  const { theme } = themeState
 
   return <>{theme === "light" ? <LightMode /> : <DarkMode />}</>
 }

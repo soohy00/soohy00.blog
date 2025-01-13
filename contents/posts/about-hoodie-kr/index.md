@@ -5,7 +5,7 @@ date: "2021-04-01"
 update: "2021-04-01"
 tags: 
     - hoodie
-series: "gatsby-starter-hoodie 로 블로그 시작하기"
+series: "A"
 ---
 
 ## gatsby-starter-hoodie 에 대하여

@@ -1,5 +1,10 @@
 import React from "react"
-import { flow, map, groupBy, sortBy, filter, reverse } from "lodash/fp"
+import flow from 'lodash/fp/flow'
+import map from 'lodash/fp/map'
+import groupBy from 'lodash/fp/groupBy'
+import sortBy from 'lodash/fp/sortBy'
+import filter from 'lodash/fp/filter'
+import reverse from 'lodash/fp/reverse'
 import styled from "styled-components"
 import SEO from "components/SEO"
 
@@ -23,18 +28,21 @@ const TagListWrapper = styled.div`
 
 const SeriesPage = ({ data }) => {
   const posts = data.allMarkdownRemark.nodes
-  const series = flow(
-    map(post => ({ ...post.frontmatter, slug: post.fields.slug })),
-    groupBy("series"),
-    map(series => ({
-      name: series[0]?.series,
-      posts: series,
-      lastUpdated: series[0]?.date || "",
-    })),
-    filter(series => series.name),
-    sortBy(series => new Date(series.lastUpdated)),
-    reverse
-  )(posts)
+  const series = React.useMemo(() => 
+    flow(
+      map(post => ({ ...post.frontmatter, slug: post.fields.slug })),
+      groupBy("series"),
+      map(series => ({
+        name: series[0]?.series,
+        posts: series,
+        lastUpdated: series[0]?.date || "",
+      })),
+      filter(series => series.name),
+      sortBy(series => new Date(series.lastUpdated)),
+      reverse
+    )(posts),
+    [posts]
+  )
 
   return (
     <Layout>

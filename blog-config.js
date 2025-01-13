@@ -9,14 +9,19 @@ module.exports = {
   useAbout: true,
   // See https://giscus.app/
   giscus: {
-    repo: "soohy00/soohy00.github.io",
-    repoId: "MDEwOlJlcG9zaXRvcnkzNjk4NjMzNTg=",
+    repo: "username/repo-name",
+    repoId: "YOUR_REPO_ID",
     category: "Comments",
-    categoryId: "DIC_kwDOFguqvs4ChwGy",
+    categoryId: "YOUR_CATEGORY_ID",
     mapping: "pathname",
-    strict: "0",
     reactionsEnabled: "1",
+    emitMetadata: "0",
     inputPosition: "bottom",
-    lang: "en",
+    lang: "ko",
+    loading: "lazy",
   },
+  notion: {
+    token: process.env.NOTION_TOKEN,
+    databaseId: process.env.NOTION_DATABASE_ID
+  }
 }
