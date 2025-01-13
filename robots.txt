@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://soohy00.github.io/sitemap-index.xml
+Host: https://soohy00.github.io
