@@ -4,12 +4,12 @@ const blogConfig = require("./blog-config");
 const { title, description, author, siteUrl } = blogConfig;
 
 module.exports = {
-  pathPrefix: "/my-hoodie-blog",
+  pathPrefix: "/",
   siteMetadata: {
     title,
     description,
     author,
-    siteUrl: 'https://soohy00.github.io/my-hoodie-blog',
+    siteUrl: 'https://soohy00.github.io',
   },
   plugins: [
     `gatsby-plugin-catch-links`,

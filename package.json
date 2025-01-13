@@ -2,7 +2,7 @@
   "name": "gatsby-starter-hoodie",
   "private": false,
   "description": "gatsby-starter-hoodie is a gatsby theme developed for developers to write tech blogs.",
-  "homepage": "https://soohy00.github.io/my-hoodie-blog",
+  "homepage": "https://soohy00.github.io",
   "version": "0.2.0",
   "author": "Hudi",
   "dependencies": {
@@ -84,13 +84,13 @@
     "fix:lint": "eslint . --fix --ext .js,.jsx",
     "check:prettier": "prettier -c .",
     "fix:prettier": "prettier -c --write .",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "deploy": "gatsby build && gh-pages -d public"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/soohy00/my-hoodie-blog"
+    "url": "https://github.com/soohy00/soohy00.github.io"
   },
   "bugs": {
-    "url": "https://github.com/soohy00/my-hoodie-blog"
+    "url": "https://github.com/soohy00/soohy00.github.io"
   }
 }
