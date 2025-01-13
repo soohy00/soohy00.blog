@@ -12,6 +12,7 @@
     "@notionhq/client": "^2.2.15",
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^2.1.4",
+    "dotenv": "^16.4.7",
     "gatsby": "^5.13.7",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-catch-links": "^5.13.1",

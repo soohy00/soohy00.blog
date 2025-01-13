@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const blogConfig = require("./blog-config");
 const { title, description, author, siteUrl } = blogConfig;
 
