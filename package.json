@@ -84,7 +84,7 @@
     "fix:lint": "eslint . --fix --ext .js,.jsx",
     "check:prettier": "prettier -c .",
     "fix:prettier": "prettier -c --write .",
-    "deploy": "gatsby build && gh-pages -d public"
+    "deploy": "gatsby build && gh-pages -d public -b gh-pages"
   },
   "repository": {
     "type": "git",
