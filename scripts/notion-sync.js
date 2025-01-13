@@ -25,7 +25,7 @@ const n2m = new NotionToMarkdown({
     },
   }
 })
-
+// 업데이트용 코드
 // 블록 타입별 변환 규칙 추가
 n2m.setCustomTransformer('callout', async (block) => {
   const emoji = block.callout.icon?.emoji || '💡'
